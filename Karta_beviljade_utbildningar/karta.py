@@ -60,12 +60,12 @@ def create_choropleth_map(
         else:
             print(f"No close match found for {region}")
 
-    # Add länskod column and clean data
+    
     df_regions["länskod"] = region_codes_map
     df_regions = df_regions.dropna(subset=["länskod"])
     df_regions["länskod"] = df_regions["länskod"].astype(str)
 
-    # Apply log if needed
+    
     if use_log:
         df_regions["Value"] = np.log(df_regions["Beviljade"] + 1)
         colorbar_title = "Log(Beviljade)"
@@ -127,7 +127,7 @@ def create_choropleth_map(
 
 # Run the function
 fig = create_choropleth_map(
-    excel_path="data/resultat-ansokningsomgang-2024.xlsx",              # Update path as needed
+    excel_path="data/resultat-ansokningsomgang-2024.xlsx",              
     geojson_path="assets/swedish_regions.geojson",
     colorscale="ylorrd",
     map_width=600,
