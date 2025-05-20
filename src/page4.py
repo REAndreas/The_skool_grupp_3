@@ -99,13 +99,30 @@ anordnare_lov = sorted(df_dataset["Utbildningsanordnare"].unique())
 year_lov = [int(x) for x in sorted(df_dataset["Ansökningsomgång"].unique())]
 df_view = df_dataset[(df_dataset["Utbildningsanordnare"] == selected_anordnare) & (df_dataset["Ansökningsomgång"] == int(selected_year))]
 
+kpi_antal_sokta = len(df_view)
+kpi_beviljade = df_view[df_view["Beslut"] == True].groupby(["Utbildningsanordnare"])["Beslut"].count().iloc[0]
+kpi_beviljad_procent = round(kpi_beviljade / kpi_antal_sokta * 100, 2)
 
 def update_df_view(state):
     state.df_view = state.df_dataset[(state.df_dataset["Utbildningsanordnare"] == state.selected_anordnare) & (state.df_dataset["Ansökningsomgång"] == int(state.selected_year))]
-
+    state.kpi_antal_sokta = state.df_view.groupby(["Utbildningsanordnare"])["Beslut"].count().iloc[0] if not state.df_view.empty else 0
+    try:
+        state.kpi_beviljade = state.df_view[state.df_view["Beslut"] == True].groupby(["Utbildningsanordnare"])["Beslut"].count().iloc[0] if not state.df_view.empty else 0
+        state.kpi_beviljad_procent = round(state.kpi_beviljade / state.kpi_antal_sokta * 100, 2)
+    except (IndexError, ZeroDivisionError):
+        state.kpi_beviljade = 0
+        state.kpi_beviljad_procent = 0
+        
 
 with tgb.Page() as page_anordnare:
     with tgb.part():
-        tgb.selector(value="{selected_anordnare}", lov = anordnare_lov, dropdown=True, on_change=update_df_view)
-        tgb.selector(value="{selected_year}", lov = year_lov, dropdown=True, on_change=update_df_view)
-        tgb.table(data="{df_view}")
+        with tgb.layout(columns="800px 200px"):
+            with tgb.part():
+                tgb.selector(value="{selected_anordnare}", lov = anordnare_lov, dropdown=True, on_change=update_df_view, filter=True)
+            with tgb.part():
+                tgb.selector(value="{selected_year}", lov = year_lov, dropdown=True, on_change=update_df_view)
+        tgb.text("Antal beviljade {kpi_beviljade} av {kpi_antal_sokta} sökta")
+        tgb.text("Procentuellt beviljat {kpi_beviljad_procent} %")
+        with tgb.layout(columns="1000px"):
+            with tgb.part():
+                tgb.table(data="{df_view}")

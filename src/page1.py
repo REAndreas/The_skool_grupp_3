@@ -227,4 +227,6 @@ fig_utbildningsomrade_beslut = make_fig_utbildningsomrade_beslut(df_utbildningso
 
 with tgb.Page() as page_kurser:
     with tgb.part(class_name="card"):
+        tgb.text("Läägg till titel, möjligen lite info")
+        # lägg till antal beviljade av antal sökta + procentuell
         tgb.chart(figure="{fig_utbildningsomrade_beslut}")
