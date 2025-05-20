@@ -1,6 +1,7 @@
 import taipy.gui.builder as tgb
 import duckdb as ddb
 import pandas as pd
+import numpy as np
  
 from utils import DATA_PATH
  
@@ -102,10 +103,18 @@ df_view = df_dataset[(df_dataset["Utbildningsanordnare"] == selected_anordnare) 
 kpi_antal_sokta = len(df_view)
 kpi_beviljade = df_view[df_view["Beslut"] == True].groupby(["Utbildningsanordnare"])["Beslut"].count().iloc[0]
 kpi_beviljad_procent = round(kpi_beviljade / kpi_antal_sokta * 100, 2)
+kpi_yh_poang = round(df_view["YH-poäng"].mean(), 0)
+kpi_sokta_platser = df_view["Sökta platser totalt"].sum()
+kpi_beviljade_platser = df_view["Beviljade platser totalt"].sum()
+
 
 def update_df_view(state):
     state.df_view = state.df_dataset[(state.df_dataset["Utbildningsanordnare"] == state.selected_anordnare) & (state.df_dataset["Ansökningsomgång"] == int(state.selected_year))]
     state.kpi_antal_sokta = state.df_view.groupby(["Utbildningsanordnare"])["Beslut"].count().iloc[0] if not state.df_view.empty else 0
+    kpi_yh_poang_result = round(state.df_view["YH-poäng"].mean(), 0)
+    state.kpi_yh_poang = 0 if np.isnan(kpi_yh_poang_result) else kpi_yh_poang_result
+    state.kpi_sokta_platser = state.df_view["Sökta platser totalt"].sum()
+    state.kpi_beviljade_platser = state.df_view["Beviljade platser totalt"].sum()
     try:
         state.kpi_beviljade = state.df_view[state.df_view["Beslut"] == True].groupby(["Utbildningsanordnare"])["Beslut"].count().iloc[0] if not state.df_view.empty else 0
         state.kpi_beviljad_procent = round(state.kpi_beviljade / state.kpi_antal_sokta * 100, 2)
@@ -123,6 +132,8 @@ with tgb.Page() as page_anordnare:
                 tgb.selector(value="{selected_year}", lov = year_lov, dropdown=True, on_change=update_df_view)
         tgb.text("Antal beviljade {kpi_beviljade} av {kpi_antal_sokta} sökta")
         tgb.text("Procentuellt beviljat {kpi_beviljad_procent} %")
+        tgb.text("Medelvärdet av sökta YH-poäng {kpi_yh_poang}")
+        tgb.text("Antal beviljade platser {kpi_beviljade_platser} av antelt sökta {kpi_sokta_platser}")
         with tgb.layout(columns="1000px"):
             with tgb.part():
                 tgb.table(data="{df_view}")
