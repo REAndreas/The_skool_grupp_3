@@ -74,7 +74,7 @@ def create_choropleth_map(
     # Apply log if needed
     if use_log:
         df_regions["Value"] = np.log(df_regions["Beviljade"] + 1)
-        colorbar_title = "Log(Beviljade)"
+        colorbar_title = "Beviljade"
     else:
         df_regions["Value"] = df_regions["Beviljade"]
         colorbar_title = "Beviljade"
@@ -84,12 +84,12 @@ def create_choropleth_map(
         go.Choroplethmapbox(
             geojson=json_data,
             locations=df_regions["länskod"],
-            z=df_regions["Value"],
+            z=df_regions["Beviljade"],
             featureidkey="properties.ref:se:länskod",
             colorscale=colorscale,
             marker_opacity=0.9,
-            zmin=df_regions["Value"].min(),
-            zmax=df_regions["Value"].max(),
+            zmin=df_regions["Beviljade"].min(),
+            zmax=df_regions["Beviljade"].max(),
             showscale=True,
             colorbar=dict(
                 title=f"<b>{colorbar_title}<br>utbildningar</b>",
@@ -110,7 +110,9 @@ def create_choropleth_map(
             text=f"<b>{map_title}</b>",
             x=0.06,
             y=0.75,
-            font=dict(size=10),
+            font=dict(size=14),
+            font_color="black",
+            font_family="Arial",
         ),
         mapbox=dict(
             style="white-bg",
@@ -128,11 +130,11 @@ def create_choropleth_map(
 
 # Run the function
 fig = create_choropleth_map(
-    excel_path="data/resultat-ansokningsomgang-2024.xlsx",              # Update path as needed
+    excel_path="data/resultat-ansokningsomgang-2024.xlsx",             
     geojson_path="assets/swedish_regions.geojson",
     colorscale="ylorrd",
-    map_width=600,
-    map_height=500,
+    map_width=700,
+    map_height=550,
     map_title="Beviljade utbildningar per län 2024",
     use_log=True
 )
