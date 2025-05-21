@@ -92,9 +92,16 @@ def create_choropleth_map(
             zmax=df_regions["Beviljade"].max(),
             showscale=True,
             colorbar=dict(
-                title=f"<b>{colorbar_title}<br>utbildningar</b>",
-                thickness=18,
-                x=1,
+                title=dict(
+                    text=f"<b>{colorbar_title}<br>utbildningar</b>",
+                    font=dict(color="black")
+                ),
+                 tickfont=dict(
+                    color="black",            
+                size=10,                
+            ),
+                thickness=25,
+                x=0.15,
                 y=0.5,
                 len=0.8,
             ),
@@ -108,8 +115,8 @@ def create_choropleth_map(
     fig.update_layout(
         title=dict(
             text=f"<b>{map_title}</b>",
-            x=0.06,
-            y=0.75,
+            x=0.46,
+            y=0.85,
             font=dict(size=14),
             font_color="black",
             font_family="Arial",
@@ -119,6 +126,8 @@ def create_choropleth_map(
             zoom=3.3,
             center=dict(lat=62.6952, lon=13.9149),
         ),
+         paper_bgcolor="#f0f0f0",  
+        #plot_bgcolor="#CD5C5C",
         margin=dict(r=0, t=50, l=0, b=0),
         dragmode=False,
         width=map_width,
