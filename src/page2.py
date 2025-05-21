@@ -30,10 +30,8 @@ education_area = "Data/It"
 with tgb.Page() as page_studerande:
     with tgb.part():
         tgb.selector(value="{education_area}", lov= lov, dropdown=True, on_change=filter_chart)
-        with tgb.layout(columns="400px"):
-            with tgb.part(class_name="card"):
-                tgb.text("Procentuell förändring mellan 2005 och 2024")
-                tgb.text("#### **{education_difference} %**", mode="md")
-        # Styla charten!! möjligen lägg till utbelda medel per år i hover text
         tgb.chart(figure="{educated_chart}")
-        #
+        with tgb.layout(columns="400px"):
+            with tgb.part(class_name="kpi-card"):
+                tgb.text("{education_difference} %", class_name="kpi-value")
+                tgb.text("Procentuell förändring mellan 2005 och 2024", class_name="kpi-title")

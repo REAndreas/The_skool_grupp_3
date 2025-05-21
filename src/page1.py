@@ -220,13 +220,53 @@ def make_fig_utbildningsomrade_beslut(df):
 
     return fig
 
+def create_rel_utbildningsomrade_topp(con):
+    rel = con.sql(
+        """
+    select
+        Utbildningsanordnare,
+        count(distinct Diarienummer) as Sökta,
+        --count(distinct case when Beslut = TRUE then Diarienummer end)::integer as Beviljade,
+        --count(distinct case when Beslut = FALSE then Diarienummer end)::integer as Avslag
+    from ( select distinct on (Diarienummer) * from rel_kurser ) as unique_entries
+    group by
+        Utbildningsanordnare
+    order by Sökta desc, Utbildningsanordnare
+    ;"""
+    )
+    return rel
+
 
 rel_kurser = create_rel_kurser_alla_kommuner(con)
 df_utbildningsomrade_beslut = create_rel_utbildningsomrade_beslut(con).df().set_index("Utbildningsområde")
 fig_utbildningsomrade_beslut = make_fig_utbildningsomrade_beslut(df_utbildningsomrade_beslut)
+df_topplista = create_rel_utbildningsomrade_topp(con).df()
+
+topplista_format = "\n".join([str(i) + ". " + x for i, x in enumerate(df_topplista["Utbildningsanordnare"].head(3), 1)])
+
+kpi_mean_sokta = round(df_topplista["Sökta"].mean())
+kpi_yh_poang = round(rel_kurser.df()["YH-poäng"].mean())
 
 with tgb.Page() as page_kurser:
     with tgb.part(class_name="card"):
-        tgb.text("Läägg till titel, möjligen lite info")
-        # lägg till antal beviljade av antal sökta + procentuell
-        tgb.chart(figure="{fig_utbildningsomrade_beslut}")
+        tgb.text("## Beslut för individuellt sökta kurser", mode="md")
+
+        with tgb.layout("1200px"):
+            tgb.chart(figure="{fig_utbildningsomrade_beslut}")
+
+        with tgb.layout("400px 400px 400px"):
+            with tgb.part(class_name="kpi-list-card"):
+                tgb.text("**Topp 3 Sökta kurser per anordnare**", mode="md", class_name="kpi-title")
+                tgb.text("{topplista_format}", mode="md", class_name="kpi-title")
+
+            with tgb.part(class_name="kpi-card"):
+                tgb.text("{kpi_mean_sokta}", class_name="kpi-value")
+                tgb.text("Antal sökta kurser per anordnare, medelvärde", class_name="kpi-title")
+
+            with tgb.part(class_name="kpi-card"):
+                tgb.text("{kpi_yh_poang} YH-poäng", class_name="kpi-value")
+                tgb.text("Medelvärdet av sökta YH-poäng", class_name="kpi-title")
+            
+
+    
+
