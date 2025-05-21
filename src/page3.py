@@ -141,7 +141,7 @@ def create_choropleth_map(
 fig = create_choropleth_map(
     excel_path="data/resultat-ansokningsomgang-2024.xlsx",             
     geojson_path="assets/swedish_regions.geojson",
-    colorscale="ylorrd",
+    colorscale="ylgnbu",
     map_width=700,
     map_height=550,
     map_title="Beviljade utbildningar per län 2024",
