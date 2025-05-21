@@ -33,8 +33,8 @@ def create_choropleth_map(
     df_regions = duckdb.query(
         """
         SELECT 
-            län AS Län,
-            COUNT_IF(beslut = 'Beviljad') AS Beviljade
+        län AS Län,
+        COUNT_IF(beslut = 'Beviljad') AS Beviljade
         FROM df 
         WHERE län != 'Flera kommuner'
         GROUP BY Län
@@ -93,17 +93,17 @@ def create_choropleth_map(
             showscale=True,
             colorbar=dict(
                 title=dict(
-                    text=f"<b>{colorbar_title}<br>utbildningar</b>",
+                    text=f"{colorbar_title}<br>utbildningar",
                     font=dict(color="black")
                 ),
                  tickfont=dict(
                     color="black",            
-                size=10,                
+                size=9,                
             ),
                 thickness=25,
                 x=0.15,
-                y=0.5,
-                len=0.8,
+                y=0.45,
+                len=0.65,
             ),
             customdata=df_regions["Beviljade"],
             text=df_regions["Län"],
@@ -123,7 +123,7 @@ def create_choropleth_map(
         ),
         mapbox=dict(
             style="white-bg",
-            zoom=3.3,
+            zoom=3.5,
             center=dict(lat=62.6952, lon=13.9149),
         ),
          paper_bgcolor="#f0f0f0",  
@@ -143,7 +143,7 @@ fig = create_choropleth_map(
     geojson_path="assets/swedish_regions.geojson",
     colorscale="ylgnbu",
     map_width=700,
-    map_height=550,
+    map_height=650,
     map_title="Beviljade utbildningar per län 2024",
     use_log=True
 )
@@ -152,3 +152,4 @@ fig = create_choropleth_map(
 with tgb.Page() as page_karta:
     with tgb.part():
         tgb.chart(figure="{fig}")
+        
