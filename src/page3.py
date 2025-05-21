@@ -33,8 +33,8 @@ def create_choropleth_map(
     df_regions = duckdb.query(
         """
         SELECT 
-            län AS Län,
-            COUNT_IF(beslut = 'Beviljad') AS Beviljade
+        län AS Län,
+        COUNT_IF(beslut = 'Beviljad') AS Beviljade
         FROM df 
         WHERE län != 'Flera kommuner'
         GROUP BY Län
@@ -92,11 +92,18 @@ def create_choropleth_map(
             zmax=df_regions["Beviljade"].max(),
             showscale=True,
             colorbar=dict(
-                title=f"<b>{colorbar_title}<br>utbildningar</b>",
-                thickness=18,
-                x=1,
-                y=0.5,
-                len=0.8,
+                title=dict(
+                    text=f"{colorbar_title}<br>utbildningar",
+                    font=dict(color="black")
+                ),
+                 tickfont=dict(
+                    color="black",            
+                size=9,                
+            ),
+                thickness=25,
+                x=0.15,
+                y=0.45,
+                len=0.65,
             ),
             customdata=df_regions["Beviljade"],
             text=df_regions["Län"],
@@ -108,17 +115,19 @@ def create_choropleth_map(
     fig.update_layout(
         title=dict(
             text=f"<b>{map_title}</b>",
-            x=0.06,
-            y=0.75,
+            x=0.46,
+            y=0.85,
             font=dict(size=14),
             font_color="black",
             font_family="Arial",
         ),
         mapbox=dict(
             style="white-bg",
-            zoom=3.3,
+            zoom=3.5,
             center=dict(lat=62.6952, lon=13.9149),
         ),
+         paper_bgcolor="#f0f0f0",  
+        #plot_bgcolor="#CD5C5C",
         margin=dict(r=0, t=50, l=0, b=0),
         dragmode=False,
         width=map_width,
@@ -132,9 +141,9 @@ def create_choropleth_map(
 fig = create_choropleth_map(
     excel_path="data/resultat-ansokningsomgang-2024.xlsx",             
     geojson_path="assets/swedish_regions.geojson",
-    colorscale="ylorrd",
+    colorscale="ylgnbu",
     map_width=700,
-    map_height=550,
+    map_height=650,
     map_title="Beviljade utbildningar per län 2024",
     use_log=True
 )
@@ -143,3 +152,4 @@ fig = create_choropleth_map(
 with tgb.Page() as page_karta:
     with tgb.part():
         tgb.chart(figure="{fig}")
+        
