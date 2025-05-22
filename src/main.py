@@ -11,11 +11,11 @@ from page5 import page_storytelling
 navbar_lov = [
     ("/page0", "Start"),
     ("/page1", "Kurser"), 
-    ("/page2", "Studerande över tid"), 
-    ("/page3", "Kommun karta"), 
+    ("/page2", "Studerande"), 
+    ("/page3", "Länskarta"), 
     ("/page4", "Utbildningsanordnare"),
     ("/page5", "Storytelling") 
-    ]
+]
 
 
 with tgb.Page() as page_root:
@@ -33,4 +33,4 @@ pages = {
 }
 
 if __name__ == "__main__":
-    Gui(pages=pages).run(dark_mode=True, use_reloader=True, port=8080)
+    Gui(pages=pages, css_file="styles.css").run(dark_mode=True, use_reloader=True, port=8080)
