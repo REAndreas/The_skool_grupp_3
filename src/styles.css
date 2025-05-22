@@ -176,3 +176,29 @@
 .MuiMenu-paper ul::-webkit-scrollbar-track {
   background-color: #f0f0f0;
 }
+
+
+/* Change sort icon and label color in table headers */
+.MuiTableSortLabel-root.Mui-active,
+.MuiTableSortLabel-root:hover,
+.MuiTableSortLabel-icon {
+    color: rgba(101, 110, 242, 1) !important;
+    fill: rgba(101, 110, 242, 1) !important;
+}
+
+/* Accordion header text - default color: white */
+.MuiAccordionSummary-content {
+    color: white !important;
+    transition: color 0.2s ease-in-out;
+}
+
+/* Indigo on hover */
+.MuiAccordionSummary-root:hover .MuiAccordionSummary-content {
+    color: rgba(101, 110, 242, 1) !important;
+}
+
+/* Optional: change accordion border or icon if needed */
+.MuiAccordionSummary-expandIconWrapper svg {
+    color: rgba(101, 110, 242, 1) !important;
+    fill: rgba(101, 110, 242, 1) !important;
+}
