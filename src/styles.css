@@ -1,6 +1,6 @@
 /* kpi_styles.css */
 .kpi-card {
-    background-color: #ffffff;
+    background-color: rgba(101, 110, 242, 1);
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 24px;
@@ -11,7 +11,7 @@
 }
 
 .kpi-list-card {
-    background-color: #ffffff;
+    background-color: rgba(101, 110, 242, 1);
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 24px;
@@ -23,18 +23,156 @@
 
 .kpi-title {
     font-size: 1rem;
-    color: #888;
+    color: #ffffff;
     margin-bottom: 8px;
 }
 
 .kpi-value {
     font-size: 2rem;
     font-weight: bold;
-    color: #2c3e50;
+    color: #ffffff;
 }
 
 .kpi-delta {
     font-size: 1rem;
     color: #27ae60; /* You can dynamically set red for negative deltas */
     margin-top: 4px;
+}
+
+/* Override text color when tab is selected */
+.MuiTab-root.Mui-selected {
+    color: rgba(101, 110, 242, 1) !important;  /* Replace with your desired color */
+}
+
+/* Override indicator bar under active tab */
+.MuiTabs-indicator {
+    background-color: rgba(101, 110, 242, 1) !important;
+}
+/* Change focused input border color */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(101, 110, 242, 1)!important; /* Your custom color */
+}
+
+/* Optional: also change hover state */
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(101, 110, 242, 1) !important;
+}
+
+/* Optional: change color of icons (e.g. dropdown arrow, clear icon) */
+.MuiSvgIcon-root {
+    color: rgba(101, 110, 242, 1)!important;
+}
+
+/* WebKit (Chrome, Edge, Safari) scrollbar customization */
+.MuiMenu-paper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.MuiMenu-paper::-webkit-scrollbar-thumb {
+    background-color: rgba(101, 110, 242, 1);        /* Scroll thumb color */
+    border-radius: 4px;
+}
+
+.MuiMenu-paper::-webkit-scrollbar-track {
+    background-color: rgba(101, 110, 242, 1);        /* Scrollbar background */
+}
+
+.MuiMenuItem-root:hover {
+    background-color: rgba(101, 110, 242, 1)!important;  /* Lighter version of your highlight */
+}
+
+.MuiMenuItem-root.Mui-selected {
+    background-color: rgba(101, 110, 242, 1) !important;  /* Replace with your color */
+    color: white !important;
+}
+
+/* ---------- INPUT & AUTOCOMPLETE FOCUS BORDER ---------- */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(101, 110, 242, 1) !important; /* Your preferred highlight color */
+}
+
+/* ---------- AUTOCOMPLETE SELECTED ITEM ---------- */
+.MuiMenuItem-root.Mui-selected {
+  background-color: rgba(101, 110, 242, 1) !important;
+  color: white !important;
+}
+
+/* ---------- AUTOCOMPLETE HOVER ITEM ---------- */
+.MuiMenuItem-root:hover {
+  background-color: rgba(101, 110, 242, 1) !important;
+}
+
+/* ---------- SELECT DROPDOWN FOCUS ---------- */
+.MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(101, 110, 242, 1)!important;
+}
+
+/* ---------- SCROLLBAR CUSTOMIZATION ---------- */
+.MuiMenu-paper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.MuiMenu-paper::-webkit-scrollbar-thumb {
+  background-color: rgba(101, 110, 242, 1);
+  border-radius: 4px;
+}
+
+.MuiMenu-paper::-webkit-scrollbar-track {
+  background-color: rgba(101, 110, 242, 1);
+}
+
+/* ---------- BUTTON FOCUS RING OVERRIDE ---------- */
+.MuiButtonBase-root:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(101, 110, 242, 1) !important;
+}
+
+/* ---------- DROPDOWN ICON COLOR ---------- */
+.MuiSelect-icon {
+  color: rgba(101, 110, 242, 1) !important;
+}
+
+
+
+/* ---------- AUTOCOMPLETE & SELECT DROPDOWN ITEM - SELECTED ---------- */
+.MuiAutocomplete-option[aria-selected="true"],
+.MuiMenuItem-root.Mui-selected {
+  background-color: rgba(101, 110, 242, 1) !important;
+  color: white !important;
+}
+
+/* ---------- HOVER STATE ---------- */
+.MuiAutocomplete-option:hover,
+.MuiMenuItem-root:hover {
+  background-color: rgba(101, 110, 242, 0.15) !important;
+  color: rgba(101, 110, 242, 1) !important;
+}
+
+/* ---------- FOCUSED (Keyboard Navigation) ---------- */
+.MuiAutocomplete-option.Mui-focused,
+.MuiMenuItem-root.Mui-focusVisible {
+  background-color: rgba(101, 110, 242, 0.25) !important;
+  color: rgba(101, 110, 242, 1) !important;
+}
+
+/* ---------- REMOVE RED BORDER ON INPUT FOCUS ---------- */
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(101, 110, 242, 1) !important;
+}
+
+/* ---------- SCROLLBAR IN DROPDOWN MENUS ---------- */
+.MuiAutocomplete-popper ul::-webkit-scrollbar,
+.MuiMenu-paper ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+.MuiAutocomplete-popper ul::-webkit-scrollbar-thumb,
+.MuiMenu-paper ul::-webkit-scrollbar-thumb {
+  background-color: rgba(101, 110, 242, 1);
+  border-radius: 4px;
+}
+
+.MuiAutocomplete-popper ul::-webkit-scrollbar-track,
+.MuiMenu-paper ul::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
 }
