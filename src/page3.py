@@ -82,18 +82,18 @@ def create_choropleth_map(
     # Create the choropleth map
     fig = go.Figure(
         go.Choroplethmapbox(
-            geojson=json_data,
-            locations=df_regions["länskod"],
-            z=df_regions["Beviljade"],
-            featureidkey="properties.ref:se:länskod",
-            colorscale=colorscale,
-            marker_opacity=0.9,
-            zmin=df_regions["Beviljade"].min(),
-            zmax=df_regions["Beviljade"].max(),
-            showscale=True,
-            colorbar=dict(
-                title=dict(
-                    text=f"{colorbar_title}<br>utbildningar",
+        geojson=json_data,
+        locations=df_regions["länskod"],
+        z=df_regions["Beviljade"],
+        featureidkey="properties.ref:se:länskod",
+        colorscale=colorscale,
+        marker_opacity=0.9,
+        zmin=df_regions["Beviljade"].min(),
+        zmax=df_regions["Beviljade"].max(),
+        showscale=True,
+        colorbar=dict(
+            title=dict(
+                text=f"{colorbar_title}<br>utbildningar",
                     font=dict(color="black")
                 ),
                  tickfont=dict(
@@ -111,10 +111,36 @@ def create_choropleth_map(
             marker_line_width=0.3,
         )
     )
+    df_total = duckdb.query(
+        """
+        SELECT 
+            COUNT(*) AS Total_ansökan,
+            COUNT_IF(beslut = 'Beviljad') AS Total_beviljade
+        FROM df 
+        WHERE län != 'Flera kommuner'
+        """
+    ).df()
 
+    total_ansökan = int(df_total["Total_ansökan"][0])
+    total_beviljade = int(df_total["Total_beviljade"][0])
+    
+    # Calculate percentage
+    if total_ansökan > 0:
+        percentage_beviljade = (total_beviljade / total_ansökan) * 100
+    else:
+        percentage_beviljade = 0.0
+
+    # Format annotation text
+    annotation_text = (
+        f"<span style='color:black; font-size:13px;'>"
+        f"• Totalt ansökningar: <b>{total_ansökan}</b><br>"
+        f"• Totalt beviljade: <b>{total_beviljade}</b><br>"
+        f"• Andel beviljade: <b>{percentage_beviljade:.1f}%</b>"
+        f"</span>"
+    )
     fig.update_layout(
         title=dict(
-            text=f"<b>{map_title}</b>",
+            text=f"<b>{"Beviljade utbildningar per län 2024"}</b>",
             x=0.46,
             y=0.85,
             font=dict(size=14),
@@ -130,10 +156,24 @@ def create_choropleth_map(
         #plot_bgcolor="#CD5C5C",
         margin=dict(r=0, t=50, l=0, b=0),
         dragmode=False,
-        width=map_width,
-        height=map_height,
+        width=700,
+        height=650,
     )
 
+
+    fig.add_annotation(
+        text=annotation_text,
+        showarrow=False,
+        align="left",
+        xref="paper", yref="paper",
+        x=.9, 
+        y=0.83,  
+        bordercolor="white",
+        borderwidth=0,
+        bgcolor="white",
+        opacity=0.9,
+        font=dict(color="blue", size=13),
+)
     return fig
 
 
