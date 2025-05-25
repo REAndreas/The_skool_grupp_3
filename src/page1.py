@@ -249,7 +249,7 @@ kpi_yh_poang = round(rel_kurser.df()["YH-poäng"].mean())
 
 with tgb.Page() as page_kurser:
     with tgb.part(class_name="card"):
-        tgb.text("## Beslut för individuellt sökta kurser", mode="md")
+        tgb.text("## Beslut för individuellt sökta kurser, ansökningsomgång 2024", mode="md")
 
         with tgb.layout("1200px"):
             tgb.chart(figure="{fig_utbildningsomrade_beslut}")

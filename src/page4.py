@@ -131,7 +131,7 @@ def update_df_view(state):
     state.kpi_mest_sokta_omrade = state.df_view["Utbildningsområde"].value_counts().sort_values(ascending=False).head(1).index[0] if not state.df_view.empty else "Inga sökta kurser"
 
 with tgb.Page() as page_anordnare:
-    tgb.text("## Statistik för individuella utbildningsanordnare", mode="md")
+    tgb.text("## Statistik för individuella utbildningsanordnare, ansökningsomgång 2020-2024", mode="md")
     with tgb.part():
         with tgb.layout(columns="1000px 200px"):
             with tgb.part():

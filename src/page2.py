@@ -56,7 +56,7 @@ education_difference = round(df["Data/It"].iloc[-1] / df["Data/It"].iloc[0] * 10
 education_area = "Data/It"
 
 with tgb.Page() as page_studerande:
-    tgb.text("## Studernade inom olika utbildningsområden", mode="md")
+    tgb.text("## Studerande inom olika utbildningsområden, ansökningsomgång 2005-2024", mode="md")
     with tgb.part():
         tgb.selector(value="{education_area}", lov= lov, dropdown=True, on_change=filter_chart)
         with tgb.layout(columns="1000px 400px"):
