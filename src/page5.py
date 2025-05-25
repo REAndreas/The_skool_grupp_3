@@ -1,7 +1,8 @@
 import taipy.gui.builder as tgb
+from utils import IMAGE_PATH
 
-img1 = "images/students.png"
-img2 = "images/godkant_beslut.png"
+img1 = IMAGE_PATH / "students.png"
+img2 = IMAGE_PATH / "godkant_beslut.png"
 
 
 with tgb.Page() as page_storytelling:
