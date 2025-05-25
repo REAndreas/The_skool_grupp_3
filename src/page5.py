@@ -6,11 +6,9 @@ img2 = "images/godkant_beslut.png"
 
 with tgb.Page() as page_storytelling:
     with tgb.part():
-        tgb.text("GRAF 1")
         tgb.image(img1, width="900px")
         
-    with tgb.part():
-        tgb.text("GRAF 2")    
+    with tgb.part():    
         tgb.image(img2, width="900px")
         
         
