@@ -1,4 +1,25 @@
 Kommun,Län,"Län, namn",Kod
+,Stockholm,Stockholms län,1
+,Uppsala,Uppsala län,3
+,Södermanland,Södermanlands län,4
+,Östergötland,Östergötlands län,5
+,Jönköping,Jönköpings län,6
+,Kronoberg,Kronobergs län,7
+,Kalmar,Kalmar län,8
+,Gotland,Gotlands län,9
+,Blekinge,Blekinge län,10
+,Skåne,Skåne län,12
+,Halland,Hallands län,13
+,Västra Götaland,Västra Götalands län,14
+,Värmland,Värmlands län,17
+,Örebro,Örebro län,18
+,Västmanland,Västmanlands län,19
+,Dalarna,Dalarnas län,20
+,Gävleborg,Gävleborgs län,21
+,Västernorrland,Västernorrlands län,22
+,Jämtland,Jämtlands län,23
+,Västerbotten,Västerbottens län,24
+,Norrbotten,Norrbottens län,25
 Upplands Väsby,Stockholm,Stockholms län,114
 Vallentuna,Stockholm,Stockholms län,115
 Österåker,Stockholm,Stockholms län,117
